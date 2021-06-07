@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frinfo"
+    tools:context=".FragmentApp.HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_backgroudall" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="265dp"
+        android:layout_height="164dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo1" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="Infomation"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+    <EditText
+        android:id="@+id/info_edUserName"
+        android:layout_width="321dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        />
+
+    <EditText
+        android:id="@+id/info_edPhone"
+        android:layout_width="321dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableLeft="@drawable/outline_call_24"
+        android:ems="10"
+        android:inputType="textPersonName|numberPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_edUserName" />
+
+    <EditText
+        android:id="@+id/info_edpassword"
+        android:layout_width="321dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableLeft="@drawable/baseline_lock_24"
+        android:ems="10"
+        android:inputType="textPersonName|numberPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_edPhone" />
+
+    <ImageButton
+        android:id="@+id/btnForgot"
+        android:layout_width="167dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_edpassword"
+        app:srcCompat="@drawable/ic_signinsvg" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="167dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_edpassword"
+        app:srcCompat="@drawable/ic_createaccountsvg" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="Edit"
+        app:layout_constraintBottom_toBottomOf="@+id/btnForgot"
+        app:layout_constraintEnd_toEndOf="@+id/btnForgot"
+        app:layout_constraintStart_toStartOf="@+id/btnForgot"
+        app:layout_constraintTop_toTopOf="@+id/btnForgot" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="Save Change"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
+        app:layout_constraintEnd_toEndOf="@+id/imageButton3"
+        app:layout_constraintStart_toStartOf="@+id/imageButton3"
+        app:layout_constraintTop_toTopOf="@+id/imageButton3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "hcmute.edu.vn.id18110339"
