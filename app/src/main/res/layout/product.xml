@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#787878"
+    android:background="@drawable/edit_button_cycle"
     android:layout_marginHorizontal="10dp"
     >
 
@@ -13,7 +13,7 @@
         android:id="@+id/imageView2"
         android:layout_width="129dp"
         android:layout_height="99dp"
-        android:background="#FFF"
+        android:background="@drawable/edit_button_cycle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.056"

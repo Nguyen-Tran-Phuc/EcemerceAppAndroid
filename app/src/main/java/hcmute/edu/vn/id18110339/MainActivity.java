@@ -27,15 +27,14 @@ public class MainActivity extends AppCompatActivity {
     EditText edUserName, edPassword;
     TextView ForgotPassword;
     ImageView SeePass;
-    public int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        /*DatabaseHandle db = new DatabaseHandle(this);
-        db.onUpgrade(this, 1,2);*/
+        DatabaseHandle db = new DatabaseHandle(this);
+        db.onUpgrade(db.Open(), 1,2);
 
         userDAO = new UserDAO(this);
         ForgotPassword = (TextView)findViewById(R.id.tvBackToLogin);
@@ -64,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 String password = edPassword.getText().toString();
 
                 UserDAO userDAO = new UserDAO(getApplicationContext());
+                userDAO.AddUser("phuc", "123", "0333213812");
                 UserDTO userDTO = userDAO.CheckLogin(username,password);
-                id = userDTO.get_UserId();
                 //Toast.makeText(MainActivity.this, userDTO.get_UserName(), Toast.LENGTH_SHORT).show();
                 if(userDTO == null){
 

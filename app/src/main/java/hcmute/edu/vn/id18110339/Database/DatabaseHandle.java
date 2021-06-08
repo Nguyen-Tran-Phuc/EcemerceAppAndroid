@@ -11,8 +11,8 @@ import hcmute.edu.vn.id18110339.DTO.UserDTO;
 
 public class DatabaseHandle extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Ministop";
+    private static final int DATABASE_VERSION = 2;
+    private static final String DATABASE_NAME = "Ministop_ver2";
 
     public static final String TB_USER = "USER";
     private static final String TB_CATEGORY = "CATEGORY";
@@ -55,11 +55,22 @@ public class DatabaseHandle extends SQLiteOpenHelper {
                 + TB_USER_USERID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TB_USER_NAME + " TEXT,"
                 + TB_USER_PASSWORD + " TEXT," + TB_USER_PHONENUMBER + " TEXT "+ ")";
         db.execSQL(CREATE_TABLE_USER);
+
+        String CREATE_TABLE_CATEGORY = "CREATE TABLE " + TB_CATEGORY + "("
+                + TB_CATEGORY_CATEGORYID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TB_CATEGORY_NAME + " TEXT "+ ")";
+        db.execSQL(CREATE_TABLE_CATEGORY);
+
+        String CREATE_TABLE_PRODUCT = "CREATE TABLE " + TB_PRODUCT + "("
+                + TB_PRODUCT_PRODUCTID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TB_CATEGORY_NAME + " TEXT,"
+                + TB_PRODUCT_PRICE + " INTEGER," + TB_PRODUCT_CATEGORYID + " INTEGER "+ ")";
+        db.execSQL(CREATE_TABLE_PRODUCT);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TB_USER);
+        db.execSQL("DROP TABLE IF EXISTS " + TB_CATEGORY);
+        db.execSQL("DROP TABLE IF EXISTS " + TB_PRODUCT);
         // Create tables again
         onCreate(db);
     }
