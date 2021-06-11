@@ -21,8 +21,12 @@ public class UserDAO {
         contentValues.put(DatabaseHandle.TB_USER_NAME, username);
         contentValues.put(DatabaseHandle.TB_USER_PASSWORD, password);
         contentValues.put(DatabaseHandle.TB_USER_PHONENUMBER, phonenumber);
-        long id = database.insert(DatabaseHandle.TB_USER, null, contentValues);
-        return 1;
+        if(database.insert(DatabaseHandle.TB_USER, null, contentValues)<0){
+            return -1;
+        }
+        else {
+            return 1;
+        }
     }
 
     public UserDTO CheckLogin(String username, String password){
@@ -41,10 +45,5 @@ public class UserDAO {
         }
         return userDTO;
     }
-
-    /*public UserDTO GetUserByUsername(String username){
-
-        return
-    }*/
 
 }

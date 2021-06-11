@@ -1,5 +1,6 @@
 package hcmute.edu.vn.id18110339.FragmentApp;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.core.widget.NestedScrollView;
@@ -13,6 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import hcmute.edu.vn.id18110339.DAO.ProductDAO;
+import hcmute.edu.vn.id18110339.DTO.ProductDTO;
 import hcmute.edu.vn.id18110339.ProductAdapter;
 import hcmute.edu.vn.id18110339.R;
 
@@ -27,7 +33,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private ImageButton btn_Drink;
     private ImageButton btn_IceCream;
     private ImageButton btn_Cake;
-    private LinearLayoutManager linaerQL;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -39,6 +44,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        ProductDAO productDAO = new ProductDAO(getContext());
+        ArrayList<ProductDTO> ListFruit = new ArrayList<>();
+        ListFruit = productDAO.productDTOS(1);
+
+        ProductDAO productDAO1 = new ProductDAO(getContext());
+        ArrayList<ProductDTO> productDTOS1 = new ArrayList<>();
+        productDTOS1 = productDAO1.productDTOS(2);
+
+        ProductDAO productDAO2 = new ProductDAO(getContext());
+        ArrayList<ProductDTO> productDTOS2 = new ArrayList<>();
+        productDTOS2 = productDAO2.productDTOS(3);
+
+        ProductDAO productDAO3 = new ProductDAO(getContext());
+        ArrayList<ProductDTO> productDTOS3 = new ArrayList<>();
+        productDTOS3 = productDAO3.productDTOS(4);
 
         //btn
         btn_Fruit = (ImageButton)view.findViewById(R.id.frhome_btnFruit);
@@ -52,7 +72,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rcvProduct = view.findViewById(R.id.rcv_product);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         rcvProduct.setLayoutManager(layoutManager);
-        productAdapter = new ProductAdapter(this.getContext(), 5);
+        productAdapter = new ProductAdapter(this.getContext(), ListFruit);
         rcvProduct.setFocusable(false);
         rcvProduct.setNestedScrollingEnabled(false);
 
@@ -61,6 +81,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rcvDrink = view.findViewById(R.id.frhome_recyclerView2);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         rcvDrink.setLayoutManager(layoutManager2);
+        productAdapter = new ProductAdapter(this.getContext(), productDTOS1);
         rcvDrink.setFocusable(false);
         rcvDrink.setNestedScrollingEnabled(false);
 
@@ -69,6 +90,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rcvIceCream = view.findViewById(R.id.frhome_recyclerView3);
         LinearLayoutManager layoutManager3 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         rcvIceCream.setLayoutManager(layoutManager3);
+        productAdapter = new ProductAdapter(this.getContext(), productDTOS2);
         rcvIceCream.setFocusable(false);
         rcvIceCream.setNestedScrollingEnabled(false);
 
@@ -77,6 +99,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rcvCake = view.findViewById(R.id.frhome_recyclerView4);
         LinearLayoutManager layoutManager4 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         rcvCake.setLayoutManager(layoutManager4);
+        productAdapter = new ProductAdapter(this.getContext(), productDTOS3);
         rcvCake.setFocusable(false);
         rcvCake.setNestedScrollingEnabled(false);
 

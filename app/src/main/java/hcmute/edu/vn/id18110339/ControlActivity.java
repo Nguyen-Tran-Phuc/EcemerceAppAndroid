@@ -1,18 +1,14 @@
-/*package hcmute.edu.vn.id18110339;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+package hcmute.edu.vn.id18110339;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.EditText;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -21,10 +17,9 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
 import hcmute.edu.vn.id18110339.DTO.ProductDTO;
 import hcmute.edu.vn.id18110339.DTO.UserDTO;
 import hcmute.edu.vn.id18110339.FragmentApp.DetailProductFragment;
-import hcmute.edu.vn.id18110339.FragmentApp.HomeFragment;
 import hcmute.edu.vn.id18110339.FragmentApp.InfoFragment;
 
-public class ControlFragment extends AppCompatActivity {
+public class ControlActivity extends AppCompatActivity {
 
     private AHBottomNavigation ahBottomNavigation;
     private AHBottomNavigationViewPager ahBottomNavigationViewPager;
@@ -34,10 +29,11 @@ public class ControlFragment extends AppCompatActivity {
     private String mName;
     private String mNumberphone;
     private String mPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_control);
 
         ahBottomNavigation = findViewById(R.id.AHBottomNavigation);
         ahBottomNavigationViewPager = findViewById(R.id.AHBottomNavigationViewPager);
@@ -65,8 +61,9 @@ public class ControlFragment extends AppCompatActivity {
         ahBottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
-
-                if(position == 3){
+                adapter.notifyDataSetChanged();
+                ahBottomNavigationViewPager.setCurrentItem(position);
+                /*if(position == 3){
 
                     mName = userDTO.get_UserName();
                     mNumberphone = userDTO.get_UserPhone();
@@ -75,8 +72,7 @@ public class ControlFragment extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.frinfo, new InfoFragment());
                     fragmentTransaction.commit();
 
-                }
-                ahBottomNavigationViewPager.setCurrentItem(position);
+                }*/
                 return true;
             }
         });
@@ -98,6 +94,7 @@ public class ControlFragment extends AppCompatActivity {
             }
         });
     }
+
     public  String getmName(){
         return mName;
     }
@@ -115,8 +112,8 @@ public class ControlFragment extends AppCompatActivity {
         bundle.putSerializable("PRODUCT",productDTO);
         detailProductFragment.setArguments(bundle);
 
-        fragmentTransaction.replace(R.id.frinfo,detailProductFragment);
+        fragmentTransaction.replace(R.id.frhome,detailProductFragment);
         fragmentTransaction.addToBackStack(detailProductFragment.getClass().getName());
         fragmentTransaction.commit();
     }
-}*/
+}

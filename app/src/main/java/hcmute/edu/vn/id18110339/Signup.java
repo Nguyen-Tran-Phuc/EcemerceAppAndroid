@@ -2,6 +2,7 @@ package hcmute.edu.vn.id18110339;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -32,10 +33,12 @@ public class Signup extends AppCompatActivity {
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = edName.getText().toString();
-                String password = edpassword.getText().toString();
-                String phonenumber = edPhone.getText().toString();
-                String confirm = edConfirm.getText().toString();
+                String username = edName.getText().toString().trim();
+                String password = edpassword.getText().toString().trim();
+                String phonenumber = edPhone.getText().toString().trim();
+                String confirm = edConfirm.getText().toString().trim();
+                Log.e("pass", password);
+                Log.e("confirm", confirm);
                 UserDTO userDTO = new UserDTO(username,password,phonenumber);
                 if(!(userDTO.IsvalidUsername())){
                     Toast.makeText(Signup.this, "Please fill user name", Toast.LENGTH_SHORT).show();
@@ -46,12 +49,15 @@ public class Signup extends AppCompatActivity {
                 else if(!(userDTO.IsvalidPassword())){
                     Toast.makeText(Signup.this, "Please fill phone password", Toast.LENGTH_SHORT).show();
                 }
-                else if(password.compareTo(confirm)==0){
+                else if(password.compareTo(confirm)!=0){
                     Toast.makeText(Signup.this, "The password not match", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     long check = userDAO.AddUser(username, password,phonenumber);
-                    if(check !=0){
+                    Log.e("UserNameDK", username);
+                    Log.e("PasswordDK", password);
+                    Log.e("PhonenumberDK", phonenumber);
+                    if(check > 0){
                         Toast.makeText(Signup.this, "Create Acount Success", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getBaseContext(), MainActivity.class);
                         startActivity(intent);

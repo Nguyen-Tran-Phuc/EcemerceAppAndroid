@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import hcmute.edu.vn.id18110339.ControlFragment;
+//import hcmute.edu.vn.id18110339.ControlFragment;
+import hcmute.edu.vn.id18110339.ControlActivity;
 import hcmute.edu.vn.id18110339.MainActivity;
 import hcmute.edu.vn.id18110339.R;
 
@@ -29,7 +30,7 @@ public class InfoFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ControlFragment controlFragment;
+    private ControlActivity controlActivity;
 
     public InfoFragment() {
         // Required empty public constructor
@@ -67,13 +68,12 @@ public class InfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_info, container, false);
-        controlFragment = (ControlFragment) getActivity();
-        EditText editText = view.findViewById(R.id.info_edUserName);
-        editText.setText(controlFragment.getmName());
+        /*EditText editText = view.findViewById(R.id.info_edUserName);
+        editText.setText(controlActivity.getmName());
         EditText phone = view.findViewById(R.id.info_edPhone);
-        phone.setText(controlFragment.getmNumberphone());
+        phone.setText(controlActivity.getmNumberphone());
         EditText password = view.findViewById(R.id.info_edpassword);
-        password.setText(controlFragment.getmPassword());
+        password.setText(controlActivity.getmPassword());*/
 
         return view;
     }

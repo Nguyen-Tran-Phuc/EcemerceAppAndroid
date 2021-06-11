@@ -11,13 +11,13 @@ import hcmute.edu.vn.id18110339.DTO.UserDTO;
 
 public class DatabaseHandle extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
-    private static final String DATABASE_NAME = "Ministop_ver2";
+    private static final int DATABASE_VERSION = 5;
+    private static final String DATABASE_NAME = "Ministop_ver5";
 
     public static final String TB_USER = "USER";
-    private static final String TB_CATEGORY = "CATEGORY";
-    private static final String TB_PRODUCT = "PRODUCT";
-    private static final String TB_BILL = "BILL";
+    public static final String TB_CATEGORY = "CATEGORY";
+    public static final String TB_PRODUCT = "PRODUCT";
+    public static final String TB_ORDER = "ODER";
     private static final String TB_BILLDETAIL = "BILLDETAIL";
 
     private static final String TB_USER_USERID = "USERID";
@@ -27,23 +27,23 @@ public class DatabaseHandle extends SQLiteOpenHelper {
 
 
     private static final String TB_CATEGORY_CATEGORYID = "CATEGORYID";
-    private static final String TB_CATEGORY_NAME = "CATEGORYNAME";
+    public static final String TB_CATEGORY_NAME = "CATEGORYNAME";
 
 
-    private static final String TB_PRODUCT_PRODUCTID = "PRODUCTID";
-    private static final String TB_PRODUCT_CATEGORYID = "CATEGORYID";
-    private static final String TB_PRODUCT_NAME = "PRODUCTNAME";
-    private static final String TB_PRODUCT_PRICE = "PRICE";
+    public static final String TB_PRODUCT_PRODUCTID = "PRODUCTID";
+    public static final String TB_PRODUCT_CATEGORYID = "CATEGORYID";
+    public static final String TB_PRODUCT_NAME = "PRODUCTNAME";
+    public static final String TB_PRODUCT_PRICE = "PRICE";
+    public static final String TB_PRODUCT_IMAGE = "IMAGE";
 
 
-    private static final String TB_BILL_BILLID = "BILLID";
-    private static final String TB_BILL_COST = "COST";
-
-
-    private static final String TABLE_CATEGORY = "category";
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_PH_NO = "phone_number";
+    private static final String TB_ORDER_ORDERID = "ORDERID";
+    public static final String TB_ORDER_STATUS = "ORDERSTATUS";
+    public static final String TB_ORDER_USERID = "USERID";
+    public static final String TB_ORDER_PRODUCTID = "PRODUCTID";
+    public static final String TB_ORDER_QUANTITY = "QUANTITY";
+    public static final String TB_ORDER_COST = "COST";
+    public static final String TB_ORDER_IMAGE = "IMAGE";
 
     public DatabaseHandle(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -61,9 +61,14 @@ public class DatabaseHandle extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CATEGORY);
 
         String CREATE_TABLE_PRODUCT = "CREATE TABLE " + TB_PRODUCT + "("
-                + TB_PRODUCT_PRODUCTID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TB_CATEGORY_NAME + " TEXT,"
-                + TB_PRODUCT_PRICE + " INTEGER," + TB_PRODUCT_CATEGORYID + " INTEGER "+ ")";
+                + TB_PRODUCT_PRODUCTID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TB_PRODUCT_NAME + " TEXT,"
+                + TB_PRODUCT_PRICE + " INTEGER," + TB_PRODUCT_CATEGORYID + " INTEGER, "+ TB_PRODUCT_IMAGE + " INTEGER "+ ")";
         db.execSQL(CREATE_TABLE_PRODUCT);
+
+        String CREATE_TABLE_ORDER = "CREATE TABLE " + TB_ORDER + "("
+                + TB_ORDER_ORDERID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TB_ORDER_STATUS + " INTEGER,"
+                + TB_ORDER_USERID + " INTEGER," + TB_ORDER_PRODUCTID + " INTEGER, "+ TB_ORDER_QUANTITY + " INTEGER, "+ TB_ORDER_COST + " INTEGER, " + TB_ORDER_IMAGE + " INTEGER " + ")";
+        db.execSQL(CREATE_TABLE_ORDER);
     }
 
     @Override
@@ -71,6 +76,7 @@ public class DatabaseHandle extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TB_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TB_CATEGORY);
         db.execSQL("DROP TABLE IF EXISTS " + TB_PRODUCT);
+        db.execSQL("DROP TABLE IF EXISTS "+ TB_ORDER);
         // Create tables again
         onCreate(db);
     }
