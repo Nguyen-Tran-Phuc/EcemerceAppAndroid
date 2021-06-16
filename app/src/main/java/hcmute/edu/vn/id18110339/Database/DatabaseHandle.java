@@ -40,7 +40,7 @@ public class DatabaseHandle extends SQLiteOpenHelper {
     private static final String TB_ORDER_ORDERID = "ORDERID";
     public static final String TB_ORDER_STATUS = "ORDERSTATUS";
     public static final String TB_ORDER_USERID = "USERID";
-    public static final String TB_ORDER_PRODUCTID = "PRODUCTID";
+    public static final String TB_ORDER_PRODUCTNAME = "PRODUCTNAME";
     public static final String TB_ORDER_QUANTITY = "QUANTITY";
     public static final String TB_ORDER_COST = "COST";
     public static final String TB_ORDER_IMAGE = "IMAGE";
@@ -67,7 +67,7 @@ public class DatabaseHandle extends SQLiteOpenHelper {
 
         String CREATE_TABLE_ORDER = "CREATE TABLE " + TB_ORDER + "("
                 + TB_ORDER_ORDERID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TB_ORDER_STATUS + " INTEGER,"
-                + TB_ORDER_USERID + " INTEGER," + TB_ORDER_PRODUCTID + " INTEGER, "+ TB_ORDER_QUANTITY + " INTEGER, "+ TB_ORDER_COST + " INTEGER, " + TB_ORDER_IMAGE + " INTEGER " + ")";
+                + TB_ORDER_USERID + " INTEGER," + TB_ORDER_PRODUCTNAME + " TEXT, "+ TB_ORDER_QUANTITY + " INTEGER, "+ TB_ORDER_COST + " INTEGER, " + TB_ORDER_IMAGE + " INTEGER " + ")";
         db.execSQL(CREATE_TABLE_ORDER);
     }
 

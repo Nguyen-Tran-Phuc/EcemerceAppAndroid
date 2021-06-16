@@ -4,7 +4,7 @@ public class OrderDTO {
     int OderId;
     int Status;
     int UserId;
-    int ProductId;
+    String ProductName;
     int Quantity;
     int ProductImage;
     int Cost;
@@ -12,10 +12,10 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(int status, int userId, int productId, int quantity, int productImage, int cost) {
+    public OrderDTO(int status, int userId, String productName, int quantity, int productImage, int cost) {
         Status = status;
         UserId = userId;
-        ProductId = productId;
+        ProductName = productName;
         Quantity = quantity;
         ProductImage = productImage;
         Cost = cost;
@@ -45,12 +45,12 @@ public class OrderDTO {
         UserId = userId;
     }
 
-    public int getProductId() {
-        return ProductId;
+    public String getProductId() {
+        return ProductName;
     }
 
-    public void setProductId(int productId) {
-        ProductId = productId;
+    public void setProductId(String productName) {
+        ProductName = productName;
     }
 
     public int getQuantity() {

@@ -4,22 +4,19 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import hcmute.edu.vn.id18110339.ControlActivity;
 import hcmute.edu.vn.id18110339.DAO.OrderDAO;
-import hcmute.edu.vn.id18110339.DTO.OrderDTO;
 import hcmute.edu.vn.id18110339.DTO.ProductDTO;
+import hcmute.edu.vn.id18110339.DTO.UserDTO;
 import hcmute.edu.vn.id18110339.R;
 
 public class DetailProductFragment extends Fragment {
@@ -31,15 +28,14 @@ public class DetailProductFragment extends Fragment {
     private ImageButton btn_Plus, btn_Minus;
     private int quantity = 1;
     private Button btn_AddToCart;
+    private ControlActivity controlActivity;
 
     public DetailProductFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_detail_product, container, false);
         productname = (TextView) view.findViewById(R.id.drinkNameinInfo);
@@ -52,10 +48,14 @@ public class DetailProductFragment extends Fragment {
         btn_AddToCart = (Button) view.findViewById(R.id.btn_AddToCart) ;
         Button bntBack = view.findViewById(R.id.btn_Back);
 
+        controlActivity = (ControlActivity)getActivity();
+
         ProductDTO productDTO  = (ProductDTO) getArguments().get("PRODUCT");
         productname.setText(productDTO.get_ProductName());
         productprice.setText(String.valueOf(productDTO.get_ProductPrice()));
         productimage.setImageResource(productDTO.get_ProductImage());
+
+        UserDTO userDTO = (UserDTO) getArguments().get("user");
         String categoryname;
         int categoryId = productDTO.get_ProductCategoryId();
         switch(categoryId){
@@ -74,8 +74,6 @@ public class DetailProductFragment extends Fragment {
             default: categoryname="Fruit";
         }
         productcategory.setText(categoryname);
-        Log.e("erro", productDTO.get_ProductName());
-        Log.e("error", String.valueOf(productDTO.get_ProductImage()));
 
 
         bntBack.setOnClickListener(new View.OnClickListener() {
@@ -104,9 +102,8 @@ public class DetailProductFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 int basePrice = productDTO.get_ProductPrice();
-                // because we dont want the quantity go less than 0
                 if (quantity == 1) {
-                    Toast.makeText(getContext(), "Cant decrease quantity < 1", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Cant reduce the quantity < 1", Toast.LENGTH_SHORT).show();
                 } else {
                     quantity--;
                     displayQuantity();
@@ -120,11 +117,11 @@ public class DetailProductFragment extends Fragment {
         btn_AddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("addtocart","here");
                 OrderDAO orderDAO = new OrderDAO(getContext());
-                long check = orderDAO.AddOrder(0,1,productDTO.get_ProductId(), quantity, quantity*productDTO.get_ProductPrice(), productDTO.get_ProductImage());
+                long check = orderDAO.AddOrder(0,userDTO.get_UserId(),productDTO.get_ProductName(), quantity, quantity*productDTO.get_ProductPrice(), productDTO.get_ProductImage());
                 if(check > 0){
                     Toast.makeText(getContext(), "Order Success", Toast.LENGTH_SHORT).show();
+                    controlActivity.display();
                     FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
                     fragmentManager.popBackStack();
                 }

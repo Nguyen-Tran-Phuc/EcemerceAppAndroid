@@ -1,22 +1,15 @@
 package hcmute.edu.vn.id18110339.FragmentApp;
 
-import android.content.Context;
-import android.os.Bundle;
 
-import androidx.core.widget.NestedScrollView;
+import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import hcmute.edu.vn.id18110339.DAO.ProductDAO;
 import hcmute.edu.vn.id18110339.DTO.ProductDTO;
 import hcmute.edu.vn.id18110339.ProductAdapter;
@@ -35,13 +28,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private ImageButton btn_Cake;
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         ProductDAO productDAO = new ProductDAO(getContext());

@@ -18,11 +18,11 @@ public class OrderDAO {
         DatabaseHandle databaseHandle = new DatabaseHandle(context);
         database = databaseHandle.Open();
     }
-    public long AddOrder(int orderStatus, int userId, int productId,int quantity, int cost,int image){
+    public long AddOrder(int orderStatus, int userId, String productName,int quantity, int cost,int image){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHandle.TB_ORDER_STATUS, orderStatus);
         contentValues.put(DatabaseHandle.TB_ORDER_USERID, userId);
-        contentValues.put(DatabaseHandle.TB_ORDER_PRODUCTID, productId);
+        contentValues.put(DatabaseHandle.TB_ORDER_PRODUCTNAME, productName);
         contentValues.put(DatabaseHandle.TB_ORDER_QUANTITY, quantity);
         contentValues.put(DatabaseHandle.TB_ORDER_COST, cost);
         contentValues.put(DatabaseHandle.TB_ORDER_IMAGE, image);
@@ -43,7 +43,7 @@ public class OrderDAO {
             orderDTO.setOderId(cursor.getInt(0));
             orderDTO.setStatus(cursor.getInt(1));
             orderDTO.setUserId(cursor.getInt(2));
-            orderDTO.setProductId(cursor.getInt(3));
+            orderDTO.setProductId(cursor.getString(3));
             orderDTO.setQuantity(cursor.getInt(4));
             orderDTO.setCost(cursor.getInt(5));
             orderDTO.setProductImage(cursor.getInt(6));
@@ -52,6 +52,15 @@ public class OrderDAO {
         }
         cursor.close();
         return ls;
+    }
+
+    public int NumberOfOrder(int userId, int status){
+        ArrayList<OrderDTO> ls = new ArrayList<>();
+        Cursor mCount = database.rawQuery("select count(*) from " + DatabaseHandle.TB_ORDER + " where USERID = ? and ORDERSTATUS = ?", new  String[]{String.valueOf(userId),String.valueOf(status)});
+        mCount.moveToFirst();
+        int count= mCount.getInt(0);
+        mCount.close();
+        return count;
     }
 
     public Boolean Payment_Cancel(int orderId , int orderStatus) {

@@ -1,32 +1,28 @@
 package hcmute.edu.vn.id18110339;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
 
 import hcmute.edu.vn.id18110339.DAO.CategoryDAO;
 import hcmute.edu.vn.id18110339.DAO.ProductDAO;
 import hcmute.edu.vn.id18110339.DAO.UserDAO;
-import hcmute.edu.vn.id18110339.DTO.ProductDTO;
 import hcmute.edu.vn.id18110339.DTO.UserDTO;
 import hcmute.edu.vn.id18110339.Database.DatabaseHandle;
-import hcmute.edu.vn.id18110339.FragmentApp.DetailProductFragment;
-import hcmute.edu.vn.id18110339.FragmentApp.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
     ImageButton SignUp, Login;
@@ -34,14 +30,20 @@ public class MainActivity extends AppCompatActivity {
     EditText edUserName, edPassword;
     TextView ForgotPassword;
     ImageView SeePass;
+    public UserDTO userDTO;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    String USERNAME_KEY = "username";
+    String PASSWORD_KEY = "password";
+    private CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        DatabaseHandle db = new DatabaseHandle(this);
-        db.onUpgrade(db.Open(), 4,5);
+        /*DatabaseHandle db = new DatabaseHandle(this);
+        db.onUpgrade(db.Open(), 4,5);*/
 
         //
         //insert data category
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         //
         //insert data user
         UserDAO userDAO_inset = new UserDAO(getApplicationContext());
-        userDAO_inset.AddUser("phuc","123","0333213812");
+        //userDAO_inset.AddUser("phuc","123","0333213812");
         //
         //
         //
@@ -65,30 +67,30 @@ public class MainActivity extends AppCompatActivity {
         productDAO.AddProduct(1, "Aplle", 15000, R.drawable.apple);
         productDAO.AddProduct(1, "Banana", 23000, R.drawable.banana);
         productDAO.AddProduct(1, "Water melon", 10000, R.drawable.watermelon);
-        productDAO.AddProduct(1, "Orange", 20000, R.drawable.orange);
+        //productDAO.AddProduct(1, "Orange", 20000, R.drawable.orange);
         productDAO.AddProduct(1, "Chery", 7000, R.drawable.chery);
         productDAO.AddProduct(1, "Mango", 12000, R.drawable.mango);
-        productDAO.AddProduct(1, "Avocado", 21000, R.drawable.avocado);
+        //productDAO.AddProduct(1, "Avocado", 21000, R.drawable.avocado);
         productDAO.AddProduct(1, "Coconut", 1000, R.drawable.coconut);
         productDAO.AddProduct(1, "Kiwi", 25000, R.drawable.kiwi);
-        productDAO.AddProduct(1, "Grape", 27000, R.drawable.grape);
+        //productDAO.AddProduct(1, "Grape", 27000, R.drawable.grape);
         //
-        productDAO.AddProduct(2, "Cocacola", 11000, R.drawable.cocacola);
+        //productDAO.AddProduct(2, "Cocacola", 11000, R.drawable.cocacola);
         productDAO.AddProduct(2, "Pepsi", 12000, R.drawable.pepsi);
         productDAO.AddProduct(2, "String", 8000, R.drawable.sting);
         productDAO.AddProduct(2, "Revive", 8000, R.drawable.rivive);
         productDAO.AddProduct(2, "Fanta", 7000, R.drawable.fanta);
-        productDAO.AddProduct(2, "Mirinda", 12000, R.drawable.mirinda);
+        //productDAO.AddProduct(2, "Mirinda", 12000, R.drawable.mirinda);
         productDAO.AddProduct(2, "Seven Up", 9000, R.drawable.sevenup);
         //
         productDAO.AddProduct(3, "Milk Cream", 15000, R.drawable.milkcream);
         productDAO.AddProduct(3, "Socola Cream", 23000, R.drawable.socolacream);
         productDAO.AddProduct(3, "Strawberry Cream", 10000, R.drawable.strawberrycream);
-        productDAO.AddProduct(3, "Mix Cream", 20000, R.drawable.mixcream);
+        //productDAO.AddProduct(3, "Mix Cream", 20000, R.drawable.mixcream);
         //
         productDAO.AddProduct(4, "Oreo", 15000, R.drawable.oreo);
-        productDAO.AddProduct(4, "AFC", 23000, R.drawable.afc);
-        productDAO.AddProduct(4, "Cosy", 10000, R.drawable.cosy);
+        //productDAO.AddProduct(4, "AFC", 23000, R.drawable.afc);
+        //productDAO.AddProduct(4, "Cosy", 10000, R.drawable.cosy);
         productDAO.AddProduct(4, "Gery", 20000, R.drawable.gery);
         //
 
@@ -97,11 +99,20 @@ public class MainActivity extends AppCompatActivity {
         SignUp = (ImageButton) findViewById(R.id.btnSignUp);
         Login = (ImageButton) findViewById(R.id.btnSignIn);
         SeePass = (ImageView)findViewById(R.id.imseepass);
+        checkBox = (CheckBox) findViewById(R.id.checkBox) ;
 
         edUserName = (EditText)findViewById(R.id.edUserName);
         edPassword = (EditText)findViewById(R.id.edPhone);
         edPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         final int[] flag = {0};
+        sharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        String s = sharedPreferences.getString(USERNAME_KEY,"phuc");
+        if(s != null){
+            edUserName.setText(sharedPreferences.getString(USERNAME_KEY,""));
+            edPassword.setText(sharedPreferences.getString(PASSWORD_KEY,""));
+            edUserName.setSelection(edUserName.length());
+            edPassword.setSelection(edPassword.length());
+        }
 
 
         SignUp.setOnClickListener(new View.OnClickListener() {
@@ -112,23 +123,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = edUserName.getText().toString();
                 String password = edPassword.getText().toString();
-                Log.e("passView", password);
-                Log.e("usernameView", username);
 
-                UserDTO userDTO = userDAO.CheckLogin(username,password);
+                userDTO = userDAO.CheckLogin(username,password);
                 if(userDTO == null){
                     Toast.makeText(getBaseContext(), "Sign In Fail",Toast.LENGTH_SHORT).show();
                 }else {
-//                    Intent intent = new Intent(getBaseContext(), ControlFragment.class);
-//                    intent.putExtra("user",userDTO);
-//                    startActivity(intent);
+                    if(checkBox.isChecked()){
+                        editor = sharedPreferences.edit();
+                        editor.putString(USERNAME_KEY, edUserName.getText().toString().trim());
+                        editor.putString(PASSWORD_KEY, edPassword.getText().toString().trim());
+                        editor.commit();
+                    }
                     Intent intent = new Intent(getBaseContext(), ControlActivity.class);
-                    intent.putExtra("user",userDTO);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("user", userDTO);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 }
             }
@@ -160,17 +175,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*public void seeDetailProduct(ProductDTO productDTO) {
-        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        DetailProductFragment detailProductFragment=new DetailProductFragment();
-        Bundle bundle=new Bundle();
-
-        bundle.putSerializable("PRODUCT",productDTO);
-        detailProductFragment.setArguments(bundle);
-
-        fragmentTransaction.replace(R.id.frinfo,detailProductFragment);
-        fragmentTransaction.addToBackStack(detailProductFragment.getClass().getName());
-        fragmentTransaction.commit();
-    }*/
 }

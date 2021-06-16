@@ -57,11 +57,4 @@ public class ProductDTO implements Serializable {
         this._ProductImage = _ProductImage;
     }
 
-    public static ArrayList<ProductDTO> createProductList(int numProduct){
-        ArrayList<ProductDTO> products = new ArrayList<ProductDTO>();
-        for (int i = 0;i< numProduct;i++){
-            products.add(new ProductDTO(1000,i,"cocacola"));
-        }
-        return  products;
-    }
 }

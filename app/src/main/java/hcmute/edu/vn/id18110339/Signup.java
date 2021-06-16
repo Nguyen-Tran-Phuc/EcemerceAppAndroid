@@ -2,14 +2,11 @@ package hcmute.edu.vn.id18110339;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import hcmute.edu.vn.id18110339.DAO.UserDAO;
 import hcmute.edu.vn.id18110339.DTO.UserDTO;
 
@@ -37,8 +34,6 @@ public class Signup extends AppCompatActivity {
                 String password = edpassword.getText().toString().trim();
                 String phonenumber = edPhone.getText().toString().trim();
                 String confirm = edConfirm.getText().toString().trim();
-                Log.e("pass", password);
-                Log.e("confirm", confirm);
                 UserDTO userDTO = new UserDTO(username,password,phonenumber);
                 if(!(userDTO.IsvalidUsername())){
                     Toast.makeText(Signup.this, "Please fill user name", Toast.LENGTH_SHORT).show();
@@ -54,16 +49,13 @@ public class Signup extends AppCompatActivity {
                 }
                 else {
                     long check = userDAO.AddUser(username, password,phonenumber);
-                    Log.e("UserNameDK", username);
-                    Log.e("PasswordDK", password);
-                    Log.e("PhonenumberDK", phonenumber);
                     if(check > 0){
-                        Toast.makeText(Signup.this, "Create Acount Success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Signup.this, "Create Account Success", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getBaseContext(), MainActivity.class);
                         startActivity(intent);
                     }
                     else {
-                        Toast.makeText(Signup.this, "Create Acount Fail", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Signup.this, "Create Account Fail", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
